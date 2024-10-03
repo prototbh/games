@@ -13,8 +13,9 @@
       font-family: Arial, sans-serif;
       background: linear-gradient(to bottom, #1a0033, #000000);
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: flex-start; /* Aligns content at the top */
+      align-items: center;
     }
 
     .starry-bg {
@@ -32,18 +33,26 @@
       height: 100%;
     }
 
-    h1 {
-      font-size: 5rem; /* Size of the text */
-      color: #00ffff; /* Neon Blue */
-      text-align: center;
-      margin-top: 20px; /* Adjust margin to position the text */
-      z-index: 10; /* Ensure text is on top */
-      position: relative; /* Allows z-index to work */
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      z-index: 1;
     }
 
+    h1 {
+      font-size: 5rem;
+      color: #00ffff;
+      text-align: center;
+      margin: 0;
+      z-index: 0;
+    }
+
+    /* Button styling */
     .game-button {
-      position: absolute;
-      top: calc(80px + 5rem); /* Position for the buttons, 80px below the title */
       width: 200px;
       height: 60px;
       background: hsla(271, 76%, 53%, 0.7);
@@ -54,6 +63,7 @@
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       z-index: 20;
+      text-align: center;
     }
 
     .game-button:hover {
@@ -61,39 +71,21 @@
       box-shadow: 0 0 20px #8a2be2;
     }
 
-    /* Specific positioning for each button (no changes needed here) */
-    #open-pacman {
-      right: calc(15%);
+    /* Button Rows - Centered alignment for each row */
+    .button-row {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
     }
 
-    #open-flappy {
-      left: calc(15%);
+    .button-row .game-button {
+      margin: 0 10px;
     }
 
-    #open-murder {
-      right: calc(1%);
-      background: hsla(271, 76%, 53%, 0.7);
-    }
-
-    #open-stickman {
-      left: calc(1%);
-      background: hsla(271, 76%, 53%, 0.7);
-    }
-
-    #open-sausage {
-      left: calc(30%);
-      background: hsla(271, 76%, 53%, 0.7);
-    }
-
-    #open-eugene {
-      left: calc(45%);
-      background: hsla(271, 76%, 53%, 0.7);
-    }
-
-    /* New button for Panda Bubble */
-    #open-panda-bubble {
-      left: calc(60%);
-      background: hsla(271, 76%, 53%, 0.7);
+    /* Layout for the buttons: one in the middle, one on the left, one on the right */
+    #row-1, #row-2, #row-3 {
+      display: flex;
+      justify-content: center;
     }
   </style>
 </head>
@@ -103,29 +95,29 @@
   <div class="starry-bg"></div>
   <svg class="stars"></svg>
 
-  <!-- Neon Text -->
-  <h1>Eli's Games</h1>
+  <!-- Neon Text in Centered Header -->
+  <div class="header">
+    <h1>Eli's Games</h1>
+  </div>
 
-  <!-- Game Button for Pac-Man -->
-  <button class="game-button" id="open-pacman">Play Pac-Man</button>
+  <!-- First Row of Buttons (Center, Left, Right) -->
+  <div id="row-1" class="button-row">
+    <button class="game-button" id="open-pacman">Play Pac-Man</button>
+    <button class="game-button" id="open-flappy">Play Flappy Bird</button>
+    <button class="game-button" id="open-murder">Play Murder</button>
+  </div>
 
-  <!-- Game Button for Flappy Bird -->
-  <button class="game-button" id="open-flappy">Play Flappy Bird</button>
+  <!-- Second Row of Buttons (Center, Left, Right) -->
+  <div id="row-2" class="button-row">
+    <button class="game-button" id="open-stickman">Play Stick Man Swing</button>
+    <button class="game-button" id="open-sausage">Play Sausage</button>
+    <button class="game-button" id="open-eugene">Play Eugene's Life</button>
+  </div>
 
-  <!-- Game Button for Be or Be Killed -->
-  <button class="game-button" id="open-murder">Play Murder</button>
-
-  <!-- New Game Button for Stick Man Swing -->
-  <button class="game-button" id="open-stickman">Play Stick Man Swing</button>
-
-  <!-- New Game Button for Play Sausage -->
-  <button class="game-button" id="open-sausage">Play Sausage</button>
-
-  <!-- New Game Button for Eugene's Life -->
-  <button class="game-button" id="open-eugene">Play Eugene's Life</button>
-
-  <!-- New Game Button for Play Panda Bubble -->
-  <button class="game-button" id="open-panda-bubble">Play Panda Bubble</button>
+  <!-- New Row for Panda Bubble Button -->
+  <div id="row-3" class="button-row">
+    <button class="game-button" id="open-panda">Play Panda Bubble</button>
+  </div>
 
   <script>
     // Star field animation
@@ -165,8 +157,7 @@
       window.location.href = 'ball/index.html'; // Link to the "ball" folder
     };
 
-    // Button click event to navigate to Panda Bubble
-    document.getElementById('open-panda-bubble').onclick = function() {
+    document.getElementById('open-panda').onclick = function() {
       window.location.href = 'bubble/index.html'; // Link to the "bubble" folder
     };
   </script>

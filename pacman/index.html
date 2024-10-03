@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eli's Games - Pacman</title>
+  <style type="text/css">
+    @font-face {
+      font-family: 'BDCartoonShoutRegular';
+      src: url('BD_Cartoon_Shout-webfont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .starry-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #1a0033, #000000);
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    h1 {
+      font-family: 'BDCartoonShoutRegular';
+      text-align: center;
+      font-size: 3rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2, 0 0 30px #8a2be2;
+      margin-top: 20px;
+    }
+
+    #pacman {
+      height: 600px;  /* Increased height */
+      width: 456px;   /* Increased width */
+      margin: 0 auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: block;
+    }
+
+    #shim {
+      font-family: BDCartoonShoutRegular;
+      position: absolute;
+      visibility: hidden;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Starry Background -->
+  <div class="starry-bg"></div>
+  <svg class="stars"></svg>
+
+  <div id="shim">shim for font face</div>
+
+  <h1>Eli's Games - Pacman</h1>
+
+  <!-- Pacman game window, larger size -->
+  <div id="pacman"></div>
+
+  <script src="pacman.js"></script>
+  <script src="modernizr-1.5.min.js"></script>
+
+  <script>
+    // Star field animation
+    const starCount = 200;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      star.setAttribute("cx", Math.random() * 100 + "%");
+      star.setAttribute("cy", Math.random() * 100 + "%");
+      star.setAttribute("r", Math.random() * 1.5 + 0.5);
+      star.setAttribute("fill", "#ffffff");
+      star.setAttribute("opacity", Math.random() * 0.8 + 0.2);
+      document.querySelector('.stars').appendChild(star);
+    }
+
+    // Initialize Pacman game
+    var el = document.getElementById("pacman");
+
+    if (Modernizr.canvas && Modernizr.localstorage && 
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+      window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else { 
+      el.innerHTML = "Sorry, needs a decent browser<br /><small>" +
+        "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+  </script>
+</body>
+</html>
